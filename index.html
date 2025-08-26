@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Neel Somani — AI‑Powered Web Developer & Freelancer</title>
+  <meta name="description" content="Neel Somani — AI‑powered web developer and automation builder. I design, develop, and ship fast, modern experiences that help businesses grow."/>
+  <meta name="theme-color" content="#0f172a"/>
+  <meta property="og:title" content="Neel Somani — AI‑Powered Web Developer & Freelancer"/>
+  <meta property="og:description" content="Web + AI. I design and ship fast, modern, conversion‑focused experiences."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:image" content="https://placehold.co/1200x630/0f172a/e5e7eb?text=Neel+Somani"/> <!-- Updated placeholder for OG image -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* =============================================================
+       Design tokens (dark & vibrant-light) + base
+       ============================================================= */
+    :root{
+      --radius:22px;
+      --shadow-1:0 10px 30px rgba(0,0,0,.25);
+      --shadow-2:0 30px 80px rgba(0,0,0,.35);
+      --ease:cubic-bezier(.2,.7,.2,1);
+      --max:1180px;
+      --nav-height: 84px; /* Define nav height for scroll-padding-top */
+      scroll-padding-top: var(--nav-height);
+      scroll-behavior: smooth;
+    }
+
+    /* Dark Theme Variables */
+    [data-theme="dark"]{
+      --bg-1:#0b1020;      /* deep blue */
+      --bg-2:#0f172a;      /* slate‑900 */
+      --fx-1:#7c3aed;      /* violet */
+      --fx-2:#06b6d4;      /* cyan */
+      --fx-3:#22c55e;      /* green */
+      --txt:#e5e7eb;       /* slate‑200 */
+      --muted:#94a3b8;     /* slate‑400 */
+      --glass:rgba(255,255,255,.06);
+      --glass-brd:rgba(255,255,255,.14);
+      --card:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
+      --ring: #22d3ee66;
+      --nav-shadow: 0 4px 20px rgba(0,0,0,.1);
+      --skill-hover-glow: 0 0 15px rgba(6, 182, 212, 0.4), 0 0 25px rgba(124, 58, 237, 0.3);
+      --project-thumb-bg: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(6, 182, 212, 0.15));
+      --card-hover-shadow: 0 15px 40px rgba(0,0,0,.4); /* Enhanced hover shadow for new cards */
+    }
+
+    /* Vibrant Light Theme Variables (formerly Gradient) */
+    [data-theme="gradient"]{
+      --bg-1:#f8fafc;      /* very light off-white */
+      --bg-2:#ffffff;      /* pure white */
+      --fx-1:#2563eb;      /* blue */
+      --fx-2:#06b6d4;      /* cyan */
+      --fx-3:#34d399;      /* emerald green */
+      --txt:#1f2937;       /* dark gray for readability */
+      --muted:#6b7280;     /* medium gray */
+      --glass:rgba(255,255,255,.75); /* Slightly less opaque for more visual depth */
+      --glass-brd:rgba(0,0,0,.1);
+      --card:linear-gradient(180deg, rgba(255,255,255,1), rgba(245,245,245,1)); /* Solid light card */
+      --ring: #2563eb66; /* Blue ring */
+      --nav-shadow: 0 4px 15px rgba(0,0,0,.08);
+      --skill-hover-glow: 0 0 15px rgba(37, 99, 235, 0.4), 0 0 25px rgba(6, 182, 212, 0.3);
+      --project-thumb-bg: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(6, 182, 212, 0.15));
+      --card-hover-shadow: 0 15px 40px rgba(0,0,0,.15); /* Enhanced hover shadow for new cards */
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--txt); font:500 16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      overflow-x:hidden; /* Prevent horizontal scroll from subtle animations */
+      will-change: background, color; /* Hint browser for performance */
+      transition: background-color .5s var(--ease), color .5s var(--ease); /* Smooth theme transition */
+    }
+
+    /* Body Background for Dark Theme */
+    [data-theme="dark"] body {
+        background: radial-gradient(1200px 800px at 80% -10%, color-mix(in oklab, var(--fx-1) 15%, transparent), transparent 55%),
+                    radial-gradient(900px 700px at -10% 30%, color-mix(in oklab, var(--fx-2) 12%, transparent), transparent 55%),
+                    linear-gradient(120deg, var(--bg-1), var(--bg-2));
+    }
+
+    /* Body Background for Vibrant Light Theme (Subtle, professional gradient) */
+    [data-theme="gradient"] body {
+        background: radial-gradient(at 85% -5%, rgba(var(--fx-1), 0.1), transparent 70%),
+                    radial-gradient(at -5% 105%, rgba(var(--fx-2), 0.1), transparent 70%),
+                    linear-gradient(180deg, var(--bg-1), var(--bg-2));
+    }
+
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    section{padding:96px 20px; scroll-margin-top:var(--nav-height)} /* Use nav-height variable */
+    .wrap{max-width:var(--max); margin:0 auto; padding: 0 20px;} /* Added horizontal padding for content areas */
+    h1,h2,h3{letter-spacing:.2px}
+    h1{font-size:clamp(36px,4.8vw,56px); line-height:1.1; margin:10px 0}
+    h2{font-size:clamp(24px,2.6vw,34px); margin:0 0 18px}
+    h3{font-size:20px; margin:0 0 10px}
+
+    /* Motion safety */
+    @media (prefers-reduced-motion: reduce){
+      *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important}
+    }
+
+    /* subtle animated grain overlay */
+    .grain:before{content:""; position:fixed; inset:-40%; z-index:1; pointer-events:none; opacity:.06;
+      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="120" height="120" filter="url(%23n)" opacity=".6"/></svg>');
+      animation:grain 12s steps(10) infinite}
+    @keyframes grain{to{transform:translate3d(-10%,10%,0)}}
+
+    /* =============================================================
+       Nav (sticky, frosted) + mobile menu + progress bar
+       ============================================================= */
+    .progress{position:fixed; inset:0 0 auto 0; height:3px; background:linear-gradient(90deg,var(--fx-2),var(--fx-1)); width:0%; z-index:80}
+    .nav{
+        position:sticky; top:0; z-index:70;
+        display:flex; align-items:center; justify-content:space-between;
+        padding:14px 20px;
+        backdrop-filter: blur(12px) saturate(160%); -webkit-backdrop-filter: blur(12px) saturate(160%);
+        background:linear-gradient(180deg, color-mix(in oklab, var(--bg-2) 60%, transparent), color-mix(in oklab, var(--bg-1) 40%, transparent));
+        border-bottom:1px solid var(--glass-brd);
+        border-radius: 0 0 var(--radius) var(--radius); /* Rounded bottom corners */
+        box-shadow: 0 0 0 rgba(0,0,0,0); /* Initial shadow */
+        transition: background .5s var(--ease), border-color .5s var(--ease), box-shadow .3s var(--ease); /* Smooth theme & shadow transition */
+        will-change: background, border-color, box-shadow;
+    }
+    .nav.scrolled {
+        box-shadow: var(--nav-shadow); /* Apply shadow when scrolled */
+    }
+
+    .brand{display:flex; gap:12px; align-items:center; font-weight:800; font-size: 1.1em;} /* Slightly larger brand text */
+    .logo{width:34px;height:34px;border-radius:12px;background:linear-gradient(135deg,var(--fx-1),var(--fx-2)); box-shadow:var(--shadow-1)}
+    .menu{display:flex; gap:18px; align-items:center;}
+    .menu a{opacity:.9; padding: 6px 10px; border-radius: 8px; transition: background .3s var(--ease), opacity .3s var(--ease), color .5s var(--ease);}
+    .menu a:hover{opacity:1; background: var(--glass);}
+    .kbd{font:600 12px/1.2 ui-monospace,Menlo,Consolas; padding:6px 8px; border-radius:10px; border:1px solid var(--glass-brd); background:var(--glass); cursor:pointer; will-change: transform, box-shadow; transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .5s var(--ease), border-color .5s var(--ease), color .5s var(--ease);}
+    .kbd:hover{transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,.2);}
+
+
+    .nav-actions{display:flex; gap:10px; align-items:center}
+    .theme-toggle,.menu-toggle{display:inline-grid; place-items:center; width:38px; height:38px; border-radius:12px; border:1px solid var(--glass-brd); background:var(--glass); cursor:pointer; will-change: transform, box-shadow; transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .5s var(--ease), border-color .5s var(--ease), color .5s var(--ease);}
+    .theme-toggle:hover, .menu-toggle:hover {transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,.2);}
+
+
+    /* Mobile menu (Hamburger) */
+    @media (max-width:860px){
+      .menu{display:none;} /* Hide desktop menu */
+      .menu.open{
+        display:flex; position:fixed;
+        inset:var(--nav-height) 12px auto 12px; /* Position below navbar */
+        flex-direction:column; padding:12px;
+        border-radius:14px; border:1px solid var(--glass-brd); background:var(--glass); box-shadow:var(--shadow-2);
+        animation: fadeInDown .3s ease-out; /* Smooth entry animation */
+      }
+      .menu.open a {width: 100%; padding: 12px; text-align: center;} /* Full width links */
+      .nav-actions .kbd { display: none; } /* Hide Ctrl+K on smaller mobile nav */
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+
+    /* =============================================================
+       Hero
+       ============================================================= */
+    .hero{min-height:76vh; display:grid; place-items:center; position:relative}
+    .orb{position:absolute; filter:blur(42px); opacity:.35; pointer-events:none; will-change: transform;} /* Added will-change */
+    .orb.one{width:420px;height:420px; left:-120px; top:-120px; background:radial-gradient(circle at 30% 30%, var(--fx-2), transparent 60%)}
+    .orb.two{width:540px;height:540px; right:-160px; bottom:-180px; background:radial-gradient(circle at 60% 60%, var(--fx-1), transparent 60%)}
+
+    .glass{background:var(--glass); border:1px solid var(--glass-brd); border-radius:var(--radius);
+           box-shadow: var(--shadow-2), inset 0 1px 0 color-mix(in oklab, white 10%, transparent);
+           backdrop-filter: blur(14px) saturate(160%); -webkit-backdrop-filter: blur(14px) saturate(160%);
+           will-change: transform, opacity, background, box-shadow, border-color; /* Added will-change */
+           transition: background .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease);
+        }
+
+    .hero-card{max-width:var(--max); width:calc(100% - 40px); display:grid; gap:30px; grid-template-columns:1.1fr .9fr; align-items:center}
+    @media (max-width:900px){.hero-card{grid-template-columns:1fr}}
+    .badge{display:inline-flex; align-items:center; gap:8px; font-weight:700; color:inherit; background:linear-gradient(90deg, color-mix(in oklab, var(--fx-2) 20%, transparent), color-mix(in oklab, var(--fx-1) 20%, transparent)); border:1px solid var(--glass-brd); padding:8px 12px; border-radius:999px; transition: background .5s var(--ease), border-color .5s var(--ease), color .5s var(--ease);}
+    .gradient-text{background:linear-gradient(135deg,var(--fx-1), var(--fx-2) 80%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; transition: background .5s var(--ease);} /* Ensure gradient text adapts */
+    [data-theme="gradient"] .gradient-text {
+        background:linear-gradient(135deg,var(--fx-1), var(--fx-2) 80%);
+        -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    }
+
+    .sub{color:var(--muted); font-size:18px}
+    .cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:14px}
+    .btn{position:relative; display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:14px; border:1px solid var(--glass-brd); background:var(--glass); cursor:pointer; transition:transform .18s var(--ease), box-shadow .18s var(--ease), background .5s var(--ease), border-color .5s var(--ease), color .5s var(--ease); will-change: transform, box-shadow; overflow: hidden; isolation: isolate;} /* Added will-change & overflow hidden for ripple */
+    .btn:hover{transform:translateY(-4px); box-shadow: var(--shadow-1);} /* More pronounced hover */
+    .btn.primary{background:linear-gradient(135deg, color-mix(in oklab, var(--fx-1) 85%, transparent), color-mix(in oklab, var(--fx-2) 85%, transparent)); box-shadow:0 12px 30px color-mix(in oklab, var(--fx-1) 25%, transparent), 0 6px 18px color-mix(in oklab, var(--fx-2) 25%, transparent);}
+    .btn .shine{position:absolute; inset:0; border-radius:inherit; background:linear-gradient(120deg, transparent, rgba(255,255,255,.15), transparent); transform:translateX(-120%); animation:shine 3s ease-in-out infinite}
+    @keyframes shine{50%{transform:translateX(120%)}}
+
+    .avatar{width:min(240px,60vw); aspect-ratio:1/1; border-radius:26px; overflow:hidden; position:relative; display:grid; place-items:center; background:radial-gradient(60% 60% at 50% 40%,color-mix(in oklab, white 5%, transparent),transparent); border:1px solid var(--glass-brd); will-change: transform; transition: transform .5s var(--ease), background .5s var(--ease), border-color .5s var(--ease);} /* Added will-change */
+    .avatar img{width:100%; height:100%; object-fit:cover}
+
+    .cred{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+    .cred .pill{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; border:1px solid var(--glass-brd); background:rgba(255,255,255,.04); color:var(--muted); transition: background .5s var(--ease), border-color .5s var(--ease), color .5s var(--ease);}
+
+    /* =============================================================
+       Section utilities
+       ============================================================= */
+    .sec-title{font-size:28px; margin-bottom:18px}
+    .grid{display:grid; gap:18px}
+    @media(min-width:800px){ .grid.cols-3{grid-template-columns:repeat(3,1fr)} .grid.cols-2{grid-template-columns:repeat(2,1fr)} }
+    .card{border-radius:18px; border:1px solid var(--glass-brd); background:var(--card); padding:18px; box-shadow:var(--shadow-1); will-change: transform, box-shadow; transition: transform .3s var(--ease), box-shadow .3s var(--ease), background .5s var(--ease), border-color .5s var(--ease);} /* Added will-change and transition */
+    .tilt{transition:transform .2s var(--ease), box-shadow .2s var(--ease)}
+    .tilt:hover{transform:translateY(-6px) scale(1.02) rotateX(2deg); box-shadow: var(--shadow-2);} /* Enhanced tilt hover */
+
+    .reveal{opacity:0; transform:translateY(30px);} /* Transition handled by GSAP */
+    .reveal.show{opacity:1; transform:none;} /* Will be set by GSAP */
+
+    /* =============================================================
+       Skills (animated circular meters)
+       ============================================================= */
+    .skills{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px}
+    .skill{display:grid; place-items:center; gap:8px; padding:16px; transition: box-shadow .3s var(--ease), transform .2s var(--ease); will-change: transform, box-shadow;}
+    .skill:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--skill-hover-glow); /* Apply theme-specific glow */
+    }
+    .skill svg{width:120px; height:120px}
+    .skill .label{font-weight:700; transition: transform .2s var(--ease);}
+    .skill:hover .label {
+        transform: scale(1.05);
+    }
+    .skill .val{color:var(--muted); font-size:14px; transition: transform .2s var(--ease);}
+    .skill:hover .val {
+        transform: scale(1.05);
+    }
+    .skill svg .meter{will-change: stroke-dashoffset; transition: stroke-dashoffset 1.5s var(--ease);} /* Longer transition for smoothness */
+
+
+    /* =============================================================
+       New Project Cards (2-Faced, No Flipping) Styles
+       ============================================================= */
+    .projects{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px; /* Increased gap between cards */
+      max-width: var(--max);
+      width: 100%;
+      padding: 20px 0; /* Adjust padding for section */
+    }
+
+    .card-container {
+      position: relative; /* Needed for absolute positioning of front/back */
+      height: 380px; /* Fixed height for consistent card sizing */
+      width: 100%;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-1);
+      cursor: pointer;
+      overflow: hidden; /* Hide overflowing content during transition */
+      will-change: transform, box-shadow;
+      transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+    }
+
+    .card-container:hover {
+        transform: translateY(-6px); /* Lift effect on hover */
+        box-shadow: var(--card-hover-shadow); /* Enhanced shadow on hover */
+    }
+
+    .card-link {
+        display: block; /* Make the entire link fill the container */
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+    }
+
+    .card-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 25px; /* Consistent padding */
+      border-radius: inherit;
+      border: 1px solid var(--glass-brd);
+      background: var(--card); /* Use general card background */
+      backdrop-filter: blur(14px) saturate(160%); -webkit-backdrop-filter: blur(14px) saturate(160%);
+      box-shadow: inset 0 1px 0 color-mix(in oklab, white 10%, transparent);
+      transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); /* Smooth fade/slide */
+      text-align: center;
+    }
+
+    .card-content-front {
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .card-content-back {
+      opacity: 0;
+      z-index: 1;
+      pointer-events: none; /* Make back content not interactable when hidden */
+      transform: translateY(20px); /* Optional: Add a subtle slide effect as it fades in */
+    }
+
+    .card-container:hover .card-content-front {
+      opacity: 0;
+      transform: translateY(-20px); /* Front slides out slightly */
+    }
+
+    .card-container:hover .card-content-back {
+      opacity: 1;
+      pointer-events: auto; /* Make back content interactable when visible */
+      transform: translateY(0); /* Back slides into place */
+    }
+
+    .card-content img {
+      width: 100%;
+      max-height: 160px; /* Limit image height on front and back */
+      object-fit: cover; /* Maintain aspect ratio, cover area */
+      border-radius: 10px;
+      margin-bottom: 15px;
+      flex-shrink: 0;
+    }
+
+    .card-content h3 { /* Consistent heading size for cards */
+        font-size: 1.8em; /* Make headings more prominent */
+        margin-bottom: 15px;
+        flex-shrink: 0;
+        color: var(--txt); /* Ensure heading color is correct */
+    }
+
+    .card-content p {
+        flex-grow: 1; /* Allow description to take available space */
+        font-size: 1em;
+        line-height: 1.5;
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: var(--muted);
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: auto; /* Push to bottom */
+      flex-shrink: 0;
+    }
+
+    .btn-repo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--glass);
+      border: 1px solid var(--glass-brd);
+      padding: 8px 14px;
+      border-radius: 10px;
+      transition: background .3s var(--ease), transform .2s var(--ease), box-shadow .2s var(--ease), color .5s var(--ease);
+      font-size: 0.85em;
+      font-weight: 600;
+      color: var(--txt);
+    }
+    .btn-repo:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+
+    /* =============================================================
+       Pricing, Contact, Footer (mostly as-is)
+       ============================================================= */
+    .price{display:grid; gap:18px}
+    @media(min-width:900px){.price{grid-template-columns:repeat(4,1fr)}} /* Adjusted for 4 packs */
+    .plan{padding:22px; border-radius:18px; border:1px solid var(--glass-brd); background:var(--card); will-change: transform, box-shadow; transition: transform .3s var(--ease), box-shadow .3s var(--ease), background .5s var(--ease), border-color .5s var(--ease);} /* Added will-change and transition */
+    .plan h3{margin:0 0 8px}
+    .plan .amt{font:800 24px/1 Inter}
+    .plan ul{padding-left:18px; margin:10px 0}
+    .plan li{margin:6px 0}
+
+    form{display:grid; gap:12px}
+    input, textarea{padding:12px 14px; border-radius:12px; border:1px solid var(--glass-brd); background:color-mix(in oklab, var(--bg-2) 90%, white 10%); color:var(--txt); will-change: background, color, border-color; transition: background .5s var(--ease), color .5s var(--ease), border-color .5s var(--ease);} /* Added will-change and transition */
+    textarea{min-height:120px; resize:vertical}
+
+    footer{padding:40px 20px; color:var(--muted); will-change: background, color; transition: background .5s var(--ease), color .5s var(--ease);} /* Added will-change and transition */
+    .foot{display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between}
+
+    /* Testimonials carousel */
+    .carousel{position:relative}
+    .track{display:flex; gap:18px; overflow:hidden; scroll-behavior:smooth}
+    .slide{min-width:calc(100% - 4px); flex:1 0 100%}
+    @media(min-width:920px){.slide{min-width:calc(50% - 9px); flex:1 0 calc(50% - 9px)}}
+    .car-btn{position:absolute; top:50%; transform:translateY(-50%); width:42px; height:42px; display:grid; place-items:center; border-radius:50%; border:1px solid var(--glass-brd); background:var(--glass); cursor:pointer; will-change: transform, box-shadow; transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .5s var(--ease), border-color .5s var(--ease), color .5s var(--ease);} /* Added will-change and transition */
+    .car-btn:hover {transform: translateY(-50%) scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,.2);}
+    .car-prev{left:-10px}
+    .car-next{right:-10px}
+    .dots{display:flex; gap:6px; justify-content:center; margin-top:10px}
+    .dot{width:7px;height:7px;border-radius:50%; background:color-mix(in oklab, var(--muted) 40%, transparent); will-change: background; transition: background .5s var(--ease);}
+    .dot.active{background:linear-gradient(135deg,var(--fx-2),var(--fx-1))}
+
+    /* Focus ring */
+    :focus-visible{outline:2px solid var(--ring); outline-offset:3px; border-radius:10px}
+
+    /* Guarantee Icons Placeholder Styling */
+    .guarantee ul li:before {
+        content: '✔️'; /* Simple checkmark for now */
+        margin-right: 8px;
+        color: var(--fx-3); /* Green checkmark */
+        display: inline-block;
+        transition: transform .3s ease;
+    }
+    .guarantee ul li:hover:before {
+        transform: scale(1.2) rotate(5deg);
+    }
+  </style>
+</head>
+<body class="grain">
+  <!-- Schema for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Neel Somani",
+    "description": "AI-powered web developer and automation builder. I design, develop, and ship fast, modern experiences.",
+    "jobTitle": "Web Developer",
+    "url": "",
+    "image": "https://placehold.co/240x240/f8fafc/1f2937?text=Neel+Somani",
+    "sameAs": [
+      "https://github.com/neelsomani00",
+      "https://in.linkedin.com/in/neelsomani",
+      "https://instagram.com/i_am_neel_somani",
+      "https://facebook.com/neelsomani"
+    ]
+  }
+  </script>
+
+  <div class="progress" id="progress"></div>
+  <nav class="nav" id="mainNav">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div><span>Neel Somani</span>
+    </div>
+    <div class="menu" id="menu">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#process">Process</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#faqs">FAQs</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <span class="kbd" id="ctrlk-btn" title="Command Palette">⌘/Ctrl + K</span>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+        <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M21.75 15.5A9.75 9.75 0 1111.25 2a.75.75 0 01.82.99A8.25 8.25 0 0021 14.68a.75.75 0 01-.99.82c-.09 0-.17 0-.26 0z"/></svg>
+        <svg id="icon-sun" style="display:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zm10.48 14.32l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM1 13h3v-2H1v2zm19-2v2h3v-2h-3zM4.95 19.07l1.41 1.41 1.8-1.79-1.41-1.41-1.8 1.79zM17.66 6.34l1.41-1.41-1.79-1.8-1.41 1.41 1.79 1.8zM12 5a7 7 0 100 14 7 7 0 000-14z"/></svg>
+      </button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu" title="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <header class="hero" id="home">
+    <div class="orb one" aria-hidden="true"></div>
+    <div class="orb two" aria-hidden="true"></div>
+    <div class="hero-card glass reveal" style="z-index:2">
+      <div>
+        <span class="badge">Web • AI • Automation</span>
+        <h1 class="gradient-text">Hi, I'm Neel — I build fast, modern and interactive websites.</h1>
+        <p class="sub">I help founders and small businesses turn ideas into polished products. Clean UI, strong UX, and automation where it saves time.</p>
+        <div class="cta">
+          <a class="btn primary magnetic" href="#contact"><span class="shine"></span>Start a Project</a>
+          <a class="btn magnetic" href="https://github.com/neelsomani00" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn magnetic" href="https://in.linkedin.com/in/neelsomani" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="btn magnetic" href="https://drive.google.com/file/d/11DAZL8g9vwFf5ZTczYWyAXAqLRbDqAng/view?usp=sharing" target="_blank" rel="noreferrer">Download Resume</a>
+        </div>
+        <div class="cred">
+          <span class="pill">📍 Indore, India</span>
+          <span class="pill">⚡ Quick turnaround</span>
+          <span class="pill">🧪 QA & accessibility first</span>
+          <span class="pill">🤖 AI tooling baked in</span>
+        </div>
+      </div>
+      <div class="avatar tilt" aria-hidden="true">
+        <img src="NEEL.jpg" alt="Neel Somani">
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- About -->
+    <section id="about" class="reveal">
+      <h2 class="sec-title">About</h2>
+      <div class="grid cols-2">
+        <div class="card glass tilt">
+          <h3>Who I am</h3>
+          <p>I'm Neel Somani — a web developer who mixes <strong>clean front‑end engineering</strong> with <strong>AI + automation</strong> to ship results quickly. I value clarity, performance, and maintainability over gimmicks.</p>
+          <p>Stack focus: HTML, CSS, JavaScript (expert) • Python/SQL/Bash (intermediate) • Prompt engineering & workflow automation.</p>
+        </div>
+        <div class="card glass tilt">
+          <h3>What you get</h3>
+          <ul>
+            <li>✨ Polished UI with subtle micro‑interactions</li>
+            <li>🚀 Performance‑minded builds (fast, responsive)</li>
+            <li>🔎 Accessibility and SEO best practices</li>
+            <li>🤖 AI assistants and automations where useful</li>
+            <li>📈 Clear milestones, docs, and hand‑off</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="reveal">
+      <h2 class="sec-title">Services</h2>
+      <div class="grid cols-3">
+        <div class="card glass tilt">
+          <h3>WEB-DEV</h3>
+          <p>Landing pages, portfolios, and mini‑sites that look premium and load fast.</p>
+          <ul><li>Responsive, accessible, SEO‑ready</li><li>Conversion‑focused layouts</li></ul>
+        </div>
+        <div class="card glass tilt">
+          <h3>Digitalization</h3>
+          <p>Integrate digital enhancements into your business or start-ups:</p>
+          <ul><li>uplifts your start-up or business by adding ai automation and other tech.</li></ul>
+        </div>
+        <div class="card glass tilt">
+          <h3>Portfolio & Branding</h3>
+          <p>Personal brands and freelancer sites with credibility and class.</p>
+          <ul><li>Case studies, testimonials</li><li>Style guide & assets</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills (progress circles) -->
+    <section id="skills" class="reveal">
+      <h2 class="sec-title">Skills</h2>
+      <div class="card glass">
+        <div class="skills">
+          <div class="skill">
+            <svg viewBox="0 0 120 120" data-pct="95"><circle cx="60" cy="60" r="52" stroke="color-mix(in oklab, var(--muted) 50%, transparent)" stroke-width="12" fill="none"/><circle class="meter" cx="60" cy="60" r="52" stroke="url(#g1)" stroke-width="12" fill="none" stroke-linecap="round" style="stroke-dasharray:327; stroke-dashoffset:327"/><defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0%" stop-color="var(--fx-2)"/><stop offset="100%" stop-color="var(--fx-1)"/></linearGradient></defs></svg>
+            <div class="label">HTML</div>
+            <div class="val">95%</div>
+          </div>
+          <div class="skill">
+            <svg viewBox="0 0 120 120" data-pct="90"><circle cx="60" cy="60" r="52" stroke="color-mix(in oklab, var(--muted) 50%, transparent)" stroke-width="12" fill="none"/><circle class="meter" cx="60" cy="60" r="52" stroke="url(#g1)" stroke-width="12" fill="none" stroke-linecap="round" style="stroke-dasharray:327; stroke-dashoffset:327"/></svg>
+            <div class="label">CSS</div>
+            <div class="val">90%</div>
+          </div>
+          <div class="skill">
+            <svg viewBox="0 0 120 120" data-pct="80"><circle cx="60" cy="60" r="52" stroke="color-mix(in oklab, var(--muted) 50%, transparent)" stroke-width="12" fill="none"/><circle class="meter" cx="60" cy="60" r="52" stroke="url(#g1)" stroke-width="12" fill="none" stroke-linecap="round" style="stroke-dasharray:327; stroke-dashoffset:327"/></svg>
+            <div class="label">JavaScript</div>
+            <div class="val">80%</div>
+          </div>
+          <div class="skill">
+            <svg viewBox="0 0 120 120" data-pct="70"><circle cx="60" cy="60" r="52" stroke="color-mix(in oklab, var(--muted) 50%, transparent)" stroke-width="12" fill="none"/><circle class="meter" cx="60" cy="60" r="52" stroke="url(#g1)" stroke-width="12" fill="none" stroke-linecap="round" style="stroke-dasharray:327; stroke-dashoffset:327"/></svg>
+            <div class="label">Python</div>
+            <div class="val">70%</div>
+          </div>
+          <div class="skill">
+            <svg viewBox="0 0 120 120" data-pct="90"><circle cx="60" cy="60" r="52" stroke="color-mix(in oklab, var(--muted) 50%, transparent)" stroke-width="12" fill="none"/><circle class="meter" cx="60" cy="60" r="52" stroke="url(#g1)" stroke-width="12" fill="none" stroke-linecap="round" style="stroke-dasharray:327; stroke-dashoffset:327"/></svg>
+            <div class="label">AI</div>
+            <div class="val">90%</div>
+          </div>
+          <div class="skill">
+            <svg viewBox="0 0 120 120" data-pct="50"><circle cx="60" cy="60" r="52" stroke="color-mix(in oklab, var(--muted) 50%, transparent)" stroke-width="12" fill="none"/><circle class="meter" cx="60" cy="60" r="52" stroke="url(#g1)" stroke-width="12" fill="none" stroke-linecap="round" style="stroke-dasharray:327; stroke-dashoffset:327"/></svg>
+            <div class="label">Automation</div>
+            <div class="val">50%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="reveal">
+      <h2 class="sec-title">Projects</h2>
+      <div class="projects" id="projectGrid">
+        <!-- Project 1: Business Landing Page Demo -->
+        <div class="card-container">
+            <a href="https://neelsomani00.github.io/business-landing-page-demo/" target="_blank" rel="noreferrer" class="card-link">
+                <div class="card-content card-content-front">
+                    <h3>Business Landing Page</h3>
+                    <p>A skeletal developed page of a business landing page.This is just developed to display skills.</p>
+                </div>
+                <div class="card-content card-content-back">
+                    <img src="https://placehold.co/400x250/06b6d4/e5e7eb?text=Business+Landing" alt="Business Landing Page Demo Image">
+                    <h3>Project Details</h3>
+                    <div class="card-actions">
+                        <a href="https://neelsomani00.github.io/business-landing-page-demo/" target="_blank" rel="noreferrer" class="btn-repo">View Project</a>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Project 2: E-commerce Page Demo -->
+        <div class="card-container">
+            <a href="https://neelsomani00.github.io/E-commerce-page-demo/" target="_blank" rel="noreferrer" class="card-link">
+                <div class="card-content card-content-front">
+                    <h3>E-commerce Product Page</h3>
+                    <p>A skeletal developed page of a E-Commerce page.This is just developed to display skills.</p>
+                </div>
+                <div class="card-content card-content-back">
+                    <img src="https://placehold.co/400x250/7c3aed/e5e7eb?text=E-commerce+Page" alt="E-commerce Page Demo Image">
+                    <h3>Project Details</h3>
+                    <div class="card-actions">
+                        <a href="https://neelsomani00.github.io/E-commerce-page-demo/" target="_blank" rel="noreferrer" class="btn-repo">View Project</a>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Project 3: informative page demo -->
+        <div class="card-container">
+            <a href="https://neelsomani00.github.io/Informative-page-demo/" target="_blank" rel="noreferrer" class="card-link">
+                <div class="card-content card-content-front">
+                    <h3>Informative page</h3>
+                    <p>A skeletal developed page of a informative site .This is just developed to display skills.</p>
+                </div>
+                <div class="card-content card-content-back">
+                    <img src="https://placehold.co/400x250/5d4aee/e5e7eb?text=Informative+page" alt="informative page demo Image">
+                    <h3>View Project</h3>
+                    <div class="card-actions">
+                        <a href="https://neelsomani00.github.io/Informative-page-demo/" target="_blank" rel="noreferrer" class="btn-repo">Learn More</a>
+                    </div>
+                </div>
+            </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process & Guarantees -->
+    <section id="process" class="reveal">
+      <h2 class="sec-title">Process & Guarantees</h2>
+      <div class="grid cols-2">
+        <div class="card glass tilt">
+          <h3>My 4‑step process</h3>
+          <ol>
+            <li><strong>Data Gathering:</strong> we will get all info by a form or a call.(info like- aim,desired features,requirements,etc)</li>
+            <li><strong>Prototype:</strong> A skeletal web of your website(empty website with your info contain just to achieve most desired results + visual direction.</li>
+            <li><strong>Final Web Presentation:</strong> implement, test and demo of your website.</li>
+            <li><strong>Ship:</strong> handing over of all files and assests(after full payment) + a short “owner’s manual”.</li>
+          </ol>
+        </div>
+        <div class="card glass tilt guarantee">
+          <h3>Guarantees</h3>
+          <ul>
+            <li>clean and heavy UI</li>
+            <li>micro-detail work to really achieve your 100% desired website or even better</li>
+            <li>100% available for contact from 3 pm to 11pm during process and contract</li>
+            <li>all work will be done under 2 weeks of time(if client gave all req info on time)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="reveal">
+      <h2 class="sec-title">Our Packs(Pricings)</h2>
+      <div class="price">
+        <div class="plan tilt">
+          <h3>⭐ Starter Pack</h3>
+          <div class="amt">₹1,000 – ₹1,300</div>
+          <ul>
+            <li>Single-page responsive website</li>
+            <li>Modern clean theme (your choice)</li>
+            <li>Basic hover effects only (no advanced interactivity)</li>
+            <li>0 animations & graphs → lightweight & fast</li>
+            <li>No special visuals</li>
+            <li>Basic form (email-only contact)</li>
+            <li>Watermark: Default ON → Removable at ₹100 extra</li>
+          </ul>
+          <a class="btn primary magnetic" href="#contact"><span class="shine"></span>Fix a Price</a>
+        </div>
+        <div class="plan tilt">
+          <h3>🚀 Grower Pack</h3>
+          <div class="amt">₹1,500 – ₹1,900</div>
+          <ul>
+            <li>4–6 pages responsive design</li>
+            <li>Interactive cards & buttons</li>
+            <li>1-2 strong animations & effects (scroll reveal, fades)</li>
+            <li>2-3 Graphs/Stats/Visuals</li>
+            <li>Basic SEO optimization (meta tags, titles)</li>
+            <li>Watermark: Default ON → Removable at ₹100 extra</li>
+          </ul>
+          <a class="btn primary magnetic" href="#contact"><span class="shine"></span>Fix a Price</a>
+        </div>
+        <div class="plan tilt">
+          <h3>👑 Premium Pack</h3>
+          <div class="amt">₹2,000 – ₹2,500</div>
+          <ul>
+            <li>Up to 10 pages</li>
+            <li>Company-grade polished frontend (Google/Microsoft level)</li>
+            <li>5–7 advanced animations (parallax, sliders, transitions)</li>
+            <li>Interactive 3D/mirror cards, advanced visuals (wherever possible)</li>
+            <li>Full SEO optimization</li>
+            <li>CMS integration (update content without coding)</li>
+            <li>Payments integration</li>
+            <li>Advanced API integrations (maps, weather, dashboards, etc.)</li>
+            <li>Graphs & dashboards with pro visuals</li>
+            <li>Auto-responsive across all devices</li>
+            <li>Watermark: Default = YES → Free removal if requested</li>
+          </ul>
+          <a class="btn primary magnetic" href="#contact"><span class="shine"></span>Fix a Price</a>
+        </div>
+        <div class="plan tilt">
+          <h3>🎯 100% Customized – Flexible</h3>
+          <div class="amt">Cost varies on basis of pages and features (starts from ₹500)</div>
+          <ul>
+            <li>No limits on pages or features</li>
+            <li>Fully custom design (React/Next.js, Tailwind, etc. possible)</li>
+            <li>Mix Premium + exclusive requirements</li>
+            <li>Custom graphics & special visuals</li>
+            <li>Cost depends on complexity/features/pages</li>
+            <li>Watermark: Default = YES → Free removal if requested</li>
+          </ul>
+          <a class="btn primary magnetic" href="#contact"><span class="shine"></span>Fix a Price</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Carousel -->
+    <section id="testimonials" class="reveal">
+      <h2 class="sec-title">Testimonials</h2>
+      <div class="carousel card glass">
+        <button class="car-btn car-prev" aria-label="Previous">‹</button>
+        <div class="track" id="tTrack">
+          <div class="slide card">
+            <p>“Clean design, fast delivery, and communicates clearly. Would hire again.”</p>
+            <p class="sub">— Pihu Itoriya , exporter</p>
+          </div>
+          <div class="slide card">
+            <p>“Loved the micro‑interactions and attention to accessibility.”</p>
+            <p class="sub">— Swapnil Mishra , Computer teacher</p>
+          </div>
+          <div class="slide card">
+            <p>“Turned rough ideas into a polished product in days.”</p>
+            <p class="sub">— Aarush Jain , freelancer</p>
+          </div>
+        </div>
+        <button class="car-btn car-next" aria-label="Next">›</button>
+        <div class="dots" id="dots"></div>
+      </div>
+    </section>
+
+    <!-- FAQs -->
+    <section id="faqs" class="reveal">
+      <h2 class="sec-title">FAQs</h2>
+      <div class="grid cols-2">
+        <div class="card glass tilt">
+          <h3>How do we start?</h3>
+          <p>Send a short brief via the form below. I reply within 24h with next steps and a quote.</p>
+        </div>
+        <div class="card glass tilt">
+          <h3>contact for queries and want updates?</h3>
+          <p>Yes,During web making and our contract you can contact any time between 3:00 PM to 10:30 PM and even in future for any quiry you can contact at same timme duration.</p>
+        </div>
+        <div class="card glass tilt">
+          <h3>how we will recieve our website?</h3>
+          <p>after finalizations, I will provide you with a file(any format as you wish).which will contain the whole website.</p>
+        </div>
+        <div class="card glass tilt">
+          <h3>is hosting and domain free</h3>
+          <p>I will host website for free(static only) if you provide with domain,and if you want me to handle all that stuff too there will be additional charges.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="reveal">
+      <h2 class="sec-title">Contact</h2>
+      <div class="grid cols-2">
+        <div class="card glass tilt">
+          <h3>Let’s build something</h3>
+          <p>Email: <a href="mailto:neelsomani00@gmail.com">neelsomani00@gmail.com</a></p>
+          <p>GitHub: <a href="https://github.com/neelsomani00" target="_blank" rel="noreferrer">github.com/neelsomani00</a></p>
+          <p>LinkedIn: <a href="https://in.linkedin.com/in/neelsomani" target="_blank" rel="noreferrer">neel‑somani</a></p>
+          <p>Instagram: <a href="https://instagram.com/i_am_neel_somani" target="_blank" rel="noreferrer">@i_am_neel_somani</a></p>
+          <p>Facebook: <a href="https://www.facebook.com/profile.php?id=61578986203739" target="_blank" rel="noreferrer">neelsomani</a></p>
+          <p>phone no.: +91 72475-07151</p>
+          <p class="sub">Prefer async. I reply within 24 hours.</p>
+        </div>
+        <form class="card glass tilt" action="https://formspree.io/f/mjkoqpny" method="POST">
+          <h3>Quick message</h3>
+          <input required name="name" type="text" placeholder="Your name"/>
+          <input required name="email" type="email" placeholder="you@example.com"/>
+          <textarea required name="message" placeholder="Tell me about the project..."></textarea>
+          <input type="hidden" name="source" value="portfolio-site"/>
+          <button class="btn primary magnetic" type="submit"><span class="shine"></span>Send</button>
+          <p class="sub">Powered by Formspree — replace the action URL with your real endpoint.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <div class="card glass foot">
+      <div>© <span id="year"></span> Neel Somani • Web • AI • Automation</div>
+      <div>Accessibility • Performance • Clean UI</div>
+    </div>
+  </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+<script>
+  // ========= Utilities =========
+  const $ = (q,ctx=document)=>ctx.querySelector(q);
+  const $$ = (q,ctx=document)=>[...ctx.querySelectorAll(q)];
+
+  // Smooth reading progress
+  const progressEl = $('#progress');
+  addEventListener('scroll',()=>{
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop)/(h.scrollHeight - h.clientHeight) * 100;
+    progressEl.style.width = scrolled + '%';
+  }, {passive:true});
+
+  // Navbar shadow on scroll
+  const mainNav = $('#mainNav');
+  gsap.to(mainNav, {
+    boxShadow: "var(--nav-shadow)",
+    scrollTrigger: {
+      trigger: "body",
+      start: "top -=100", // When scroll past 100px
+      end: "top -=101",
+      toggleActions: "play none none reverse" // Add shadow on scroll down, remove on scroll up
+    }
+  });
+
+
+  // Reveal on scroll with GSAP
+  gsap.registerPlugin(ScrollTrigger);
+  $$('.reveal').forEach(el=>{
+    gsap.fromTo(el,
+      {opacity:0, translateY: 30},
+      {opacity:1, translateY: 0, duration: 0.8, ease: "power2.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top bottom-=100", // Start animation when 100px from bottom of viewport
+          toggleActions: "play none none reverse", // play on enter, reverse on leave back up
+          // markers: true // for debugging
+        }
+      }
+    );
+  });
+
+
+  // Magnetic buttons + ripple
+  $$('.magnetic').forEach(btn=>{
+    // Magnetic effect
+    btn.addEventListener('mousemove',e=>{
+      const r = btn.getBoundingClientRect();
+      const x = (e.clientX - (r.left + r.width/2))/r.width;
+      const y = (e.clientY - (r.top + r.height/2))/r.height;
+      gsap.to(btn, {x: x*8, y: y*8, duration: 0.3, ease: "power2.out"});
+    });
+    btn.addEventListener('mouseleave',()=> {
+      gsap.to(btn, {x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.5)"});
+    });
+
+    // Ripple effect
+    btn.addEventListener('click',function(ev){
+      const circle = document.createElement('span');
+      const d = Math.max(this.clientWidth, this.clientHeight);
+      circle.style.cssText = `position:absolute;width:${d}px;height:${d}px;left:${ev.offsetX-d/2}px;top:${ev.offsetY-d/2}px;border-radius:50%;background:rgba(255,255,255,.35);pointer-events:none;`;
+      this.append(circle);
+      gsap.fromTo(circle, {scale: 0, opacity: 0.85}, {scale: 2.6, opacity: 0, duration: 0.65, ease: "power2.out", onComplete: ()=>circle.remove()});
+    });
+  });
+
+  // Tilt for .tilt (GSAP for smoother reset)
+  $$('.tilt').forEach(el=>{
+    el.addEventListener('mousemove',e=>{
+      const r=el.getBoundingClientRect();
+      const x=(e.clientX-(r.left+r.width/2))/r.width;
+      const y=(e.clientY-(r.top+r.height/2))/r.height;
+      gsap.to(el, {rotationX: (-y*6).toFixed(2), rotationY: (x*6).toFixed(2), translateY: -6, scale: 1.02, duration: 0.3, ease: "power2.out"});
+    });
+    el.addEventListener('mouseleave',()=> {
+      gsap.to(el, {rotationX: 0, rotationY: 0, translateY: 0, scale: 1, duration: 0.5, ease: "elastic.out(1, 0.5)"});
+    });
+  });
+
+  // Command palette (Ctrl/⌘+K)
+  const palette = document.createElement('dialog');
+  palette.className='cmdk';
+  palette.style.cssText='position:fixed;inset:0;display:grid;place-items:start center;padding-top:15vh;z-index:90;background:rgba(0,0,0,.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display:none;'; // Adjusted for blur and initial hidden
+  palette.innerHTML = `
+    <div class="glass" style="width:min(720px,92vw);padding:12px;border-radius:16px; box-shadow: var(--shadow-2);">
+      <input class="cmdk-input" placeholder="Type to jump • e.g. pricing" aria-label="Command" style="width:100%;padding:14px 16px;font:600 16px/1.2 ui-monospace,Menlo; border:1px solid var(--glass-brd); border-radius:12px; background:var(--glass); color:var(--txt); outline:none;"/>
+      <div class="cmdk-list" style="margin-top:10px; max-height:50vh; overflow:auto;">
+        <div class="cmdk-item" data-goto="#about">About</div>
+        <div class="cmdk-item" data-goto="#services">Services</div>
+        <div class="cmdk-item" data-goto="#skills">Skills</div>
+        <div class="cmdk-item" data-goto="#projects">Projects</div>
+        <div class="cmdk-item" data-goto="#process">Process</div>
+        <div class="cmdk-item" data-goto="#pricing">Pricing</div>
+        <div class="cmdk-item" data-goto="#testimonials">Testimonials</div>
+        <div class="cmdk-item" data-goto="#faqs">FAQs</div>
+        <div class="cmdk-item" data-goto="#contact">Contact</div>
+      </div>
+    </div>`;
+  document.body.appendChild(palette);
+  const cmdInput = palette.querySelector('.cmdk-input');
+
+  function openPalette(){
+    palette.style.display = 'grid'; // Change display to grid to show it
+    gsap.fromTo(palette.querySelector('.glass'),
+      {opacity:0, translateY: -50},
+      {opacity:1, translateY: 0, duration: 0.4, ease: "power3.out",
+        onComplete: () => cmdInput.focus()
+      });
+  }
+
+  function closePalette(){
+    gsap.to(palette.querySelector('.glass'),
+      {opacity:0, translateY: -50, duration: 0.3, ease: "power3.in",
+        onComplete: () => {
+          palette.style.display = 'none'; // Hide after animation
+          cmdInput.value = '';
+          palette.querySelectorAll('.cmdk-item').forEach(i=> i.style.display = ''); // Reset filters
+        }
+      });
+  }
+
+  addEventListener('keydown',e=>{
+    if((e.ctrlKey || e.metaKey) && e.key.toLowerCase()==='k'){
+      e.preventDefault();
+      if(palette.style.display === 'none' || palette.style.display === '') openPalette();
+      else closePalette();
+    }
+    if(e.key==='Escape' && palette.style.display === 'grid') closePalette();
+  });
+
+  // Make Ctrl+K button clickable
+  const ctrlkBtn = $('#ctrlk-btn');
+  if (ctrlkBtn) {
+      ctrlkBtn.addEventListener('click', openPalette);
+  }
+
+  palette.addEventListener('click',e=>{ if(e.target===palette) closePalette(); });
+  palette.querySelectorAll('.cmdk-item').forEach(i=> i.addEventListener('click',()=>{
+    location.hash = i.dataset.goto;
+    closePalette();
+  }));
+  cmdInput.addEventListener('input',()=>{
+    const q = cmdInput.value.toLowerCase().trim();
+    palette.querySelectorAll('.cmdk-item').forEach(i=> i.style.display = i.textContent.toLowerCase().includes(q) ? '' : 'none');
+  });
+
+  // Year
+  $('#year').textContent = new Date().getFullYear();
+
+  // ======= Theme toggle (with persistence + system default) =======
+  const root = document.documentElement;
+  const THEME_KEY = 'theme'; // Use 'theme' as key
+  function setTheme(t){
+    root.setAttribute('data-theme', t);
+    // Swap icons based on current theme
+    $('#icon-sun').style.display = (t==='gradient')?'inline-block':'none'; // Sun for gradient
+    $('#icon-moon').style.display = (t==='dark')?'inline-block':'none'; // Moon for dark
+    // Update avatar image based on theme
+    const avatarImg = $('.avatar img');
+    if (avatarImg) {
+        if (t === 'dark') {
+            avatarImg.src = "NEEL.jpg"; // Dark theme avatar
+        } else {
+            avatarImg.src = "NEEL.jpg"; // Light theme avatar - using the same image for both themes for consistency
+        }
+    }
+  }
+
+  // Set initial theme on load
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const storedTheme = localStorage.getItem(THEME_KEY);
+
+  if (storedTheme) {
+      setTheme(storedTheme);
+  } else {
+      setTheme(prefersDark ? 'dark' : 'gradient'); // Default to dark, fallback to gradient if no preference
+  }
+
+  $('#themeToggle').addEventListener('click',()=>{
+    const currentTheme = root.getAttribute('data-theme');
+    const nextTheme = (currentTheme === 'dark') ? 'gradient' : 'dark';
+    setTheme(nextTheme);
+    localStorage.setItem(THEME_KEY, nextTheme);
+  });
+
+  // ======= Mobile menu =======
+  $('#menuToggle').addEventListener('click',()=> {
+    $('#menu').classList.toggle('open');
+    // Animate hamburger icon
+    const icon = $('#menuToggle svg');
+    if ($('#menu').classList.contains('open')) {
+      gsap.to(icon.children[0], {y: 5, rotate: 45, duration: 0.3});
+      gsap.to(icon.children[1], {opacity: 0, duration: 0.3});
+      gsap.to(icon.children[2], {y: -5, rotate: -45, duration: 0.3});
+    } else {
+      gsap.to(icon.children[0], {y: 0, rotate: 0, duration: 0.3});
+      gsap.to(icon.children[1], {opacity: 1, duration: 0.3});
+      gsap.to(icon.children[2], {y: 0, rotate: 0, duration: 0.3});
+    }
+  });
+  $$('#menu a').forEach(a=> a.addEventListener('click',()=> {
+    $('#menu').classList.remove('open');
+    // Reset hamburger icon after selection
+    const icon = $('#menuToggle svg');
+    gsap.to(icon.children[0], {y: 0, rotate: 0, duration: 0.3});
+    gsap.to(icon.children[1], {opacity: 1, duration: 0.3});
+    gsap.to(icon.children[2], {y: 0, rotate: 0, duration: 0.3});
+  }));
+
+
+  // ======= Skills meter animation on reveal (GSAP integration) =======
+  const skillObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const svg = e.target;
+      const pct = +svg.getAttribute('data-pct');
+      const r = 52;
+      const C = 2 * Math.PI * r;
+      const meter = svg.querySelector('.meter');
+      meter.style.strokeDasharray = C; // Set once
+      // Animate strokeDashoffset with GSAP
+      gsap.fromTo(meter,
+        {strokeDashoffset: C},
+        {strokeDashoffset: C * (1 - pct / 100), duration: 1.5, ease: "power3.out"}
+      );
+      skillObs.unobserve(svg); // Unobserve after animation plays once
+    })
+  }, {threshold:.4});
+  $$('#skills svg').forEach(s=> skillObs.observe(s));
+
+
+  // ======= Project filtering (removed) =======
+  // The filter bar has been removed from the HTML, so this JS is no longer needed.
+
+
+  // ======= Testimonials carousel =======
+  const track = $('#tTrack');
+  const slides = $$('#tTrack .slide');
+  const prev = $('.car-prev');
+  const next = $('.car-next');
+  const dots = $('#dots');
+  let idx = 0, timer;
+  function update(){
+    const w = slides[0].offsetWidth + 18; // slide width + gap
+    gsap.to(track, {scrollLeft: idx * w, duration: 0.6, ease: "power2.out"}); // Use GSAP for smooth scroll
+    // dots
+    dots.innerHTML = '';
+    slides.forEach((_,i)=>{
+      const d=document.createElement('span'); d.className='dot'+(i===idx?' active':''); dots.appendChild(d);
+    });
+  }
+  function go(n){ idx = (n+slides.length)%slides.length; update(); }
+  prev.addEventListener('click',()=>go(idx-1));
+  next.addEventListener('click',()=>go(idx+1));
+  function start(){ stop(); timer = setInterval(()=>go(idx+1), 4500); }
+  function stop(){ if(timer) clearInterval(timer); }
+  track.addEventListener('mouseenter', stop); track.addEventListener('mouseleave', start);
+  addEventListener('resize', update);
+  update(); start();
+
+  // ======= Hero section entry animation =======
+  gsap.from(".hero-card .badge", {opacity: 0, y: 20, duration: 0.6, ease: "power2.out", delay: 0.2});
+  gsap.from(".hero-card h1", {opacity: 0, y: 20, duration: 0.8, ease: "power2.out", delay: 0.4});
+  gsap.from(".hero-card .sub", {opacity: 0, y: 20, duration: 0.8, ease: "power2.out", delay: 0.6});
+  gsap.from(".hero-card .cta .btn", {opacity: 0, y: 20, stagger: 0.1, duration: 0.6, ease: "power2.out", delay: 0.8});
+  gsap.from(".hero-card .cred", {opacity: 0, y: 20, duration: 0.6, ease: "power2.out", delay: 1.0});
+  gsap.from(".hero-card .avatar", {opacity: 0, scale: 0.8, duration: 1.0, ease: "power2.out", delay: 1.2});
+
+
+  // ======= Parallax hero orbs with GSAP ScrollTrigger =======
+  gsap.to(".orb.one", {
+    y: () => window.innerHeight * 0.05, // Reduced parallax strength slightly
+    ease: "none",
+    scrollTrigger: {
+      trigger: "body",
+      start: "top top",
+      end: "bottom top",
+      scrub: true
+    }
+  });
+  gsap.to(".orb.two", {
+    y: () => -window.innerHeight * 0.05, // Reduced parallax strength slightly
+    ease: "none",
+    scrollTrigger: {
+      trigger: "body",
+      start: "top top",
+      end: "bottom top",
+      scrub: true
+    }
+  });
+
+  // Guarantee icon wiggle (using GSAP for subtle effect)
+  $$('.guarantee ul li').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+        gsap.to(item, {x: 5, repeat: 1, yoyo: true, duration: 0.1, ease: "power1.out"});
+        // Since ::before cannot be directly animated, this is a placeholder.
+        // For a true animation, you'd embed a span/svg for the icon.
+    });
+    item.addEventListener('mouseleave', () => {
+        gsap.to(item, {x: 0, duration: 0.3, ease: "power2.out"});
+    });
+  });
+
+  // Project card click to open live URL
+  // The entire .project-card-wrapper is now an <a> tag, so native click handles navigation.
+  // No additional JavaScript needed for this specific requirement.
+
+</script>
+</body>
+</html>

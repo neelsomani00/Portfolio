@@ -206,7 +206,14 @@
        ============================================================= */
     .sec-title{font-size:28px; margin-bottom:18px}
     .grid{display:grid; gap:18px}
-    @media(min-width:800px){ .grid.cols-3{grid-template-columns:repeat(3,1fr)} .grid.cols-2{grid-template-columns:repeat(2,1fr)} }
+    /* Default to single column for all grids on small screens */
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    @media(min-width:800px){
+        .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+        .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    }
     .card{border-radius:18px; border:1px solid var(--glass-brd); background:var(--card); padding:18px; box-shadow:var(--shadow-1); will-change: transform, box-shadow; transition: transform .3s var(--ease), box-shadow .3s var(--ease), background .5s var(--ease), border-color .5s var(--ease);} /* Added will-change and transition */
     .tilt{transition:transform .2s var(--ease), box-shadow .2s var(--ease)}
     .tilt:hover{transform:translateY(-6px) scale(1.02) rotateX(2deg); box-shadow: var(--shadow-2);} /* Enhanced tilt hover */
@@ -245,6 +252,20 @@
       max-width: var(--max);
       width: 100%;
       padding: 20px 0; /* Adjust padding for section */
+    }
+
+    @media (max-width: 320px) { /* For extremely small phone screens */
+        .projects {
+            grid-template-columns: 1fr; /* Force single column if screen is tiny */
+            padding: 10px 0; /* Reduce padding further */
+        }
+        .card-container {
+            height: auto; /* Allow card height to adjust to content */
+            min-height: 300px; /* Ensure a minimum height if content is very short */
+        }
+        .card-content {
+            padding: 15px; /* Reduce padding inside cards */
+        }
     }
 
     .card-container {
@@ -372,7 +393,18 @@
        Pricing, Contact, Footer (mostly as-is)
        ============================================================= */
     .price{display:grid; gap:18px}
-    @media(min-width:900px){.price{grid-template-columns:repeat(4,1fr)}} /* Adjusted for 4 packs */
+    /* Default to single column for pricing on mobile */
+    .price {
+        grid-template-columns: 1fr;
+    }
+    @media(min-width:600px){ /* Allow two columns for pricing on slightly larger mobiles/tablets */
+        .price {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    @media(min-width:900px){ /* Original 4-column layout for larger screens */
+        .price{grid-template-columns:repeat(4,1fr)}
+    }
     .plan{padding:22px; border-radius:18px; border:1px solid var(--glass-brd); background:var(--card); will-change: transform, box-shadow; transition: transform .3s var(--ease), box-shadow .3s var(--ease), background .5s var(--ease), border-color .5s var(--ease);} /* Added will-change and transition */
     .plan h3{margin:0 0 8px}
     .plan .amt{font:800 24px/1 Inter}
@@ -413,6 +445,63 @@
     .guarantee ul li:hover:before {
         transform: scale(1.2) rotate(5deg);
     }
+
+    /* --- Bug Fixes & Responsiveness Enhancements --- */
+
+    /* Ensure no element explicitly forces horizontal scroll */
+    body {
+        overflow-x: hidden; /* Already present, but re-emphasize */
+    }
+
+    /* Adjust wrap and section padding for very small screens */
+    @media (max-width: 480px) {
+        .wrap {
+            padding: 0 15px; /* Slightly reduce padding to give more space */
+        }
+        section {
+            padding: 60px 15px; /* Adjust section padding as well */
+        }
+    }
+
+    /* Ensure images within cards are responsive */
+    .card-content img {
+        max-width: 100%; /* Already present, but re-emphasize */
+        height: auto; /* Ensure aspect ratio is maintained */
+    }
+
+    /* Prevent text from overflowing in cases where it might not wrap */
+    p, li, h1, h2, h3 {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* Adjust font sizes for smaller screens if they appear too large */
+    @media (max-width: 600px) {
+        h1 {
+            font-size: clamp(30px, 8vw, 48px); /* Make H1 smaller on very small screens */
+        }
+        h2 {
+            font-size: clamp(22px, 5vw, 30px); /* Make H2 smaller */
+        }
+        .sub {
+            font-size: 16px; /* Ensure sub-text is readable */
+        }
+        .badge {
+            font-size: 0.9em; /* Smaller badge text */
+            padding: 6px 10px;
+        }
+        .btn {
+            padding: 10px 14px; /* Smaller buttons */
+            font-size: 0.9em;
+        }
+        .card-content h3 {
+            font-size: 1.5em; /* Adjust project card headings */
+        }
+        .card-content p {
+            font-size: 0.9em; /* Adjust project card descriptions */
+        }
+    }
+
   </style>
 </head>
 <body class="grain">
@@ -1114,5 +1203,3 @@
 </script>
 </body>
 </html>
-
-

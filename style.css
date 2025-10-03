@@ -1,0 +1,493 @@
+/* =============================================================
+   Design tokens (dark & vibrant-light) + base
+   ============================================================= */
+:root{
+  --radius:22px;
+  --shadow-1:0 10px 30px rgba(0,0,0,.25);
+  --shadow-2:0 30px 80px rgba(0,0,0,.35);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --max:1180px; /* Original max-width */
+  --nav-height: 84px; /* Define nav height for scroll-padding-top */
+  scroll-padding-top: var(--nav-height);
+  scroll-behavior: smooth;
+}
+
+/* Dark Theme Variables */
+[data-theme="dark"]{
+  --bg-1:#0b1020;      /* deep blue */
+  --bg-2:#0f172a;      /* slate‑900 */
+  --fx-1:#7c3aed;      /* violet */
+  --fx-2:#06b6d4;      /* cyan */
+  --fx-3:#22c55e;      /* green */
+  --txt:#e5e7eb;       /* slate‑200 */
+  --muted:#94a3b8;     /* slate‑400 */
+  --glass:rgba(255,255,255,.06);
+  --glass-brd:rgba(255,255,255,.14);
+  --card:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
+  --ring: #22d3ee66;
+  --nav-shadow: 0 4px 20px rgba(0,0,0,.1);
+  --skill-hover-glow: 0 0 15px rgba(6, 182, 212, 0.4), 0 0 25px rgba(124, 58, 237, 0.3);
+  --project-thumb-bg: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(6, 182, 212, 0.15));
+  --card-hover-shadow: 0 15px 40px rgba(0,0,0,.4); /* Enhanced hover shadow for new cards */
+}
+
+/* Vibrant Light Theme Variables (formerly Gradient) */
+[data-theme="gradient"]{
+  --bg-1:#f8fafc;      /* very light off-white */
+  --bg-2:#ffffff;      /* pure white */
+  --fx-1:#2563eb;      /* blue */
+  --fx-2:#06b6d4;      /* cyan */
+  --fx-3:#34d399;      /* emerald green */
+  --txt:#1f2937;       /* dark gray for readability */
+  --muted:#6b7280;     /* medium gray */
+  --glass:rgba(255,255,255,.75); /* Slightly less opaque for more visual depth */
+  --glass-brd:rgba(0,0,0,.1);
+  --card:linear-gradient(180deg, rgba(255,255,255,1), rgba(245,245,245,1)); /* Solid light card */
+  --ring: #2563eb66; /* Blue ring */
+  --nav-shadow: 0 4px 15px rgba(0,0,0,.08);
+  --skill-hover-glow: 0 0 15px rgba(37, 99, 235, 0.4), 0 0 25px rgba(6, 182, 212, 0.3);
+  --project-thumb-bg: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(6, 182, 212, 0.15));
+  --card-hover-shadow: 0 15px 40px rgba(0,0,0,.15); /* Enhanced hover shadow for new cards */
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; color:var(--txt); font:500 16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  overflow-x:hidden; /* Prevent horizontal scroll from subtle animations */
+  will-change: background, color; /* Hint browser for performance */
+  transition: background-color .5s var(--ease), color .5s var(--ease); /* Smooth theme transition */
+}
+
+/* Body Background for Dark Theme */
+[data-theme="dark"] body {
+    background: radial-gradient(1200px 800px at 80% -10%, color-mix(in oklab, var(--fx-1) 15%, transparent), transparent 55%),
+                radial-gradient(900px 700px at -10% 30%, color-mix(in oklab, var(--fx-2) 12%, transparent), transparent 55%),
+                linear-gradient(120deg, var(--bg-1), var(--bg-2));
+}
+
+/* Body Background for Vibrant Light Theme (Subtle, professional gradient) */
+[data-theme="gradient"] body {
+    background: radial-gradient(at 85% -5%, rgba(var(--fx-1), 0.1), transparent 70%),
+                radial-gradient(at -5% 105%, rgba(var(--fx-2), 0.1), transparent 70%),
+                linear-gradient(180deg, var(--bg-1), var(--bg-2));
+}
+
+a{color:inherit; text-decoration:none}
+img{max-width:100%; display:block}
+section{padding:96px 20px; scroll-margin-top:var(--nav-height)} /* Use nav-height variable */
+.wrap{max-width:var(--max); margin:0 auto; padding: 0 20px;} /* Added horizontal padding for content areas */
+h1,h2,h3{letter-spacing:.2px}
+h1{font-size:clamp(36px,4.8vw,56px); line-height:1.1; margin:10px 0}
+h2{font-size:clamp(24px,2.6vw,34px); margin:0 0 18px}
+h3{font-size:20px; margin:0 0 10px}
+
+/* Motion safety */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important}
+}
+
+/* subtle animated grain overlay */
+.grain:before{content:""; position:fixed; inset:-40%; z-index:1; pointer-events:none; opacity:.06;
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="120" height="120" filter="url(%23n)" opacity=".6"/></svg>');
+  animation:grain 12s steps(10) infinite}
+@keyframes grain{to{transform:translate3d(-10%,10%,0)}}
+
+/* =============================================================
+   Nav (sticky, frosted) + mobile menu + progress bar
+   ============================================================= */
+.progress{position:fixed; inset:0 0 auto 0; height:3px; background:linear-gradient(90deg,var(--fx-2),var(--fx-1)); width:0%; z-index:80}
+.nav{
+    position:sticky; top:0; z-index:70;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px;
+    backdrop-filter: blur(12px) saturate(160%); -webkit-backdrop-filter: blur(12px) saturate(160%);
+    background:linear-gradient(180deg, color-mix(in oklab, var(--bg-2) 60%, transparent), color-mix(in oklab, var(--bg-1) 40%, transparent));
+    border-bottom:1px solid var(--glass-brd);
+    border-radius: 0 0 var(--radius) var(--radius); /* Rounded bottom corners */
+    box-shadow: 0 0 0 rgba(0,0,0,0); /* Initial shadow */
+    transition: background .5s var(--ease), border-color .5s var(--ease), box-shadow .3s var(--ease); /* Smooth theme & shadow transition */
+    will-change: background, border-color, box-shadow;
+}
+.nav.scrolled {
+    box-shadow: var(--nav-shadow); /* Apply shadow when scrolled */
+}
+
+.brand{display:flex; gap:12px; align-items:center; font-weight:800; font-size: 1.1em;} /* Slightly larger brand text */
+.logo{width:34px;height:34px;border-radius:12px;background:linear-gradient(135deg,var(--fx-1),var(--fx-2)); box-shadow:var(--shadow-1)}
+.menu{display:flex; gap:18px; align-items:center;}
+.menu a{opacity:.9; padding: 6px 10px; border-radius: 8px; transition: background .3s var(--ease), opacity .3s var(--ease), color .5s var(--ease);}
+.menu a:hover{opacity:1; background: var(--glass);}
+.kbd{font:600 12px/1.2 ui-monospace,Menlo,Consolas; padding:6px 8px; border-radius:10px; border:1px solid var(--glass-brd); background:var(--glass); cursor:pointer; will-change: transform, box-shadow; transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .5s var(--ease), border-color .5s var(--ease), color .5s var(--ease);}
+.kbd:hover{transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,.2);}
+
+
+.nav-actions{display:flex; gap:10px; align-items:center}
+.theme-toggle,.menu-toggle{display:inline-grid; place-items:center; width:38px; height:38px; border-radius:12px; border:1px solid var(--glass-brd); background:var(--glass); cursor:pointer; will-change: transform, box-shadow; transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .5s var(--ease), border-color .5s var(--ease), color .5s var(--ease);}
+.theme-toggle:hover, .menu-toggle:hover {transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,.2);}
+
+
+/* Mobile menu (Hamburger) */
+@media (max-width:860px){
+  .menu{display:none;} /* Hide desktop menu */
+  .menu.open{
+    display:flex; position:fixed;
+    inset:var(--nav-height) 12px auto 12px; /* Position below navbar */
+    flex-direction:column; padding:12px;
+    border-radius:14px; border:1px solid var(--glass-brd); background:var(--glass); box-shadow:var(--shadow-2);
+    animation: fadeInDown .3s ease-out; /* Smooth entry animation */
+  }
+  .menu.open a {width: 100%; padding: 12px; text-align: center;} /* Full width links */
+  .nav-actions .kbd { display: none; } /* Hide Ctrl+K on smaller mobile nav */
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* =============================================================
+   Hero
+   ============================================================= */
+.hero{
+  min-height:76vh;
+  display:grid;
+  place-items:center;
+  position:relative;
+  overflow: hidden; /* Crucial for containing the orbs and preventing horizontal scroll */
+}
+.orb{position:absolute; filter:blur(42px); opacity:.35; pointer-events:none; will-change: transform;} /* Added will-change */
+.orb.one{width:420px;height:420px; left:-120px; top:-120px; background:radial-gradient(circle at 30% 30%, var(--fx-2), transparent 60%)}
+.orb.two{width:540px;height:540px; right:-160px; bottom:-180px; background:radial-gradient(circle at 60% 60%, var(--fx-1), transparent 60%)}
+
+.glass{background:var(--glass); border:1px solid var(--glass-brd); border-radius:var(--radius);
+       box-shadow: var(--shadow-2), inset 0 1px 0 color-mix(in oklab, white 10%, transparent);
+       backdrop-filter: blur(14px) saturate(160%); -webkit-backdrop-filter: blur(14px) saturate(160%);
+       will-change: transform, opacity, background, box-shadow, border-color; /* Added will-change */
+       transition: background .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease);
+    }
+
+.hero-card{max-width:var(--max); width:calc(100% - 40px); display:grid; gap:30px; grid-template-columns:1.1fr .9fr; align-items:center}
+@media (max-width:900px){.hero-card{grid-template-columns:1fr}}
+.badge{display:inline-flex; align-items:center; gap:8px; font-weight:700; color:inherit; background:linear-gradient(90deg, color-mix(in oklab, var(--fx-2) 20%, transparent), color-mix(in oklab, var(--fx-1) 20%, transparent)); border:1px solid var(--glass-brd); padding:8px 12px; border-radius:999px; transition: background .5s var(--ease), border-color .5s var(--ease), color .5s var(--ease);}
+.gradient-text{background:linear-gradient(135deg,var(--fx-1), var(--fx-2) 80%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; transition: background .5s var(--ease);} /* Ensure gradient text adapts */
+[data-theme="gradient"] .gradient-text {
+    background:linear-gradient(135deg,var(--fx-1), var(--fx-2) 80%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+}
+
+.sub{color:var(--muted); font-size:18px}
+.cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:14px}
+.btn{position:relative; display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:14px; border:1px solid var(--glass-brd); background:var(--glass); cursor:pointer; transition:transform .18s var(--ease), box-shadow .18s var(--ease), background .5s var(--ease), border-color .5s var(--ease), color .5s var(--ease); will-change: transform, box-shadow; overflow: hidden; isolation: isolate;} /* Added will-change & overflow hidden for ripple */
+.btn:hover{transform:translateY(-4px); box-shadow: var(--shadow-1);} /* More pronounced hover */
+.btn.primary{background:linear-gradient(135deg, color-mix(in oklab, var(--fx-1) 85%, transparent), color-mix(in oklab, var(--fx-2) 85%, transparent)); box-shadow:0 12px 30px color-mix(in oklab, var(--fx-1) 25%, transparent), 0 6px 18px color-mix(in oklab, var(--fx-2) 25%, transparent);}
+.btn .shine{position:absolute; inset:0; border-radius:inherit; background:linear-gradient(120deg, transparent, rgba(255,255,255,.15), transparent); transform:translateX(-120%); animation:shine 3s ease-in-out infinite}
+@keyframes shine{50%{transform:translateX(120%)}}
+
+.avatar{width:min(240px,60vw); aspect-ratio:1/1; border-radius:26px; overflow:hidden; position:relative; display:grid; place-items:center; background:radial-gradient(60% 60% at 50% 40%,color-mix(in oklab, white 5%, transparent),transparent); border:1px solid var(--glass-brd); will-change: transform; transition: transform .5s var(--ease), background .5s var(--ease), border-color .5s var(--ease);} /* Added will-change */
+.avatar img{width:100%; height:100%; object-fit:cover}
+
+.cred{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+.cred .pill{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; border:1px solid var(--glass-brd); background:rgba(255,255,255,.04); color:var(--muted); transition: background .5s var(--ease), border-color .5s var(--ease), color .5s var(--ease);}
+
+/* =============================================================
+   Section utilities
+   ============================================================= */
+.sec-title{font-size:28px; margin-bottom:18px}
+.grid{display:grid; gap:18px}
+/* Default to single column for all grids on small screens */
+.grid {
+    grid-template-columns: 1fr;
+}
+@media(min-width:800px){
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+}
+.card{border-radius:18px; border:1px solid var(--glass-brd); background:var(--card); padding:18px; box-shadow:var(--shadow-1); will-change: transform, box-shadow; transition: transform .3s var(--ease), box-shadow .3s var(--ease), background .5s var(--ease), border-color .5s var(--ease);} /* Added will-change and transition */
+.tilt{transition:transform .2s var(--ease), box-shadow .2s var(--ease)}
+.tilt:hover{transform:translateY(-6px) scale(1.02) rotateX(2deg); box-shadow: var(--shadow-2);} /* Enhanced tilt hover */
+
+.reveal{opacity:0; transform:translateY(30px);} /* Transition handled by GSAP */
+.reveal.show{opacity:1; transform:none;} /* Will be set by GSAP */
+
+/* =============================================================
+   Skills (animated circular meters)
+   ============================================================= */
+.skills{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px}
+.skill{display:grid; place-items:center; gap:8px; padding:16px; transition: box-shadow .3s var(--ease), transform .2s var(--ease); will-change: transform, box-shadow;}
+.skill:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--skill-hover-glow); /* Apply theme-specific glow */
+}
+.skill svg{width:120px; height:120px}
+.skill .label{font-weight:700; transition: transform .2s var(--ease);}
+.skill:hover .label {
+    transform: scale(1.05);
+}
+.skill .val{color:var(--muted); font-size:14px; transition: transform .2s var(--ease);}
+.skill:hover .val {
+    transform: scale(1.05);
+}
+.skill svg .meter{will-change: stroke-dashoffset; transition: stroke-dashoffset 1.5s var(--ease);} /* Longer transition for smoothness */
+
+
+/* =============================================================
+   New Project Cards (2-Faced, No Flipping) Styles
+   ============================================================= */
+.projects{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px; /* Increased gap between cards */
+  max-width: var(--max);
+  width: 100%;
+  padding: 20px 0; /* Adjust padding for section */
+}
+
+@media (max-width: 320px) { /* For extremely small phone screens */
+    .projects {
+        grid-template-columns: 1fr; /* Force single column if screen is tiny */
+        padding: 10px 0; /* Reduce padding further */
+    }
+    .card-container {
+        height: auto; /* Allow card height to adjust to content */
+        min-height: 300px; /* Ensure a minimum height if content is very short */
+    }
+    .card-content {
+        padding: 15px; /* Reduce padding inside cards */
+    }
+}
+
+.card-container {
+  position: relative; /* Needed for absolute positioning of front/back */
+  height: 380px; /* Fixed height for consistent card sizing */
+  width: 100%;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+  cursor: pointer;
+  overflow: hidden; /* Hide overflowing content during transition */
+  will-change: transform, box-shadow;
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+
+.card-container:hover {
+    transform: translateY(-6px); /* Lift effect on hover */
+    box-shadow: var(--card-hover-shadow); /* Enhanced shadow on hover */
+}
+
+.card-link {
+    display: block; /* Make the entire link fill the container */
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+}
+
+.card-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 25px; /* Consistent padding */
+  border-radius: inherit;
+  border: 1px solid var(--glass-brd);
+  background: var(--card); /* Use general card background */
+  backdrop-filter: blur(14px) saturate(160%); -webkit-backdrop-filter: blur(14px) saturate(160%);
+  box-shadow: inset 0 1px 0 color-mix(in oklab, white 10%, transparent);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); /* Smooth fade/slide */
+  text-align: center;
+}
+
+.card-content-front {
+  opacity: 1;
+  z-index: 2;
+}
+
+.card-content-back {
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none; /* Make back content not interactable when hidden */
+  transform: translateY(20px); /* Optional: Add a subtle slide effect as it fades in */
+}
+
+.card-container:hover .card-content-front {
+  opacity: 0;
+  transform: translateY(-20px); /* Front slides out slightly */
+}
+
+.card-container:hover .card-content-back {
+  opacity: 1;
+  pointer-events: auto; /* Make back content interactable when visible */
+  transform: translateY(0); /* Back slides into place */
+}
+
+.card-content img {
+  width: 100%;
+  max-height: 160px; /* Limit image height on front and back */
+  object-fit: cover; /* Maintain aspect ratio, cover area */
+  border-radius: 10px;
+  margin-bottom: 15px;
+  flex-shrink: 0;
+}
+
+.card-content h3 { /* Consistent heading size for cards */
+    font-size: 1.8em; /* Make headings more prominent */
+    margin-bottom: 15px;
+    flex-shrink: 0;
+    color: var(--txt); /* Ensure heading color is correct */
+}
+
+.card-content p {
+    flex-grow: 1; /* Allow description to take available space */
+    font-size: 1em;
+    line-height: 1.5;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--muted);
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: auto; /* Push to bottom */
+  flex-shrink: 0;
+}
+
+.btn-repo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--glass);
+  border: 1px solid var(--glass-brd);
+  padding: 8px 14px;
+  border-radius: 10px;
+  transition: background .3s var(--ease), transform .2s var(--ease), box-shadow .2s var(--ease), color .5s var(--ease);
+  font-size: 0.85em;
+  font-weight: 600;
+  color: var(--txt);
+}
+.btn-repo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+
+/* =============================================================
+   Pricing, Contact, Footer (mostly as-is)
+   ============================================================= */
+.price{display:grid; gap:18px}
+/* Default to single column for pricing on mobile */
+.price {
+    grid-template-columns: 1fr;
+}
+@media(min-width:600px){ /* Allow two columns for pricing on slightly larger mobiles/tablets */
+    .price {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media(min-width:900px){ /* Original 4-column layout for larger screens */
+    .price{grid-template-columns:repeat(4,1fr)}
+}
+.plan{padding:22px; border-radius:18px; border:1px solid var(--glass-brd); background:var(--card); will-change: transform, box-shadow; transition: transform .3s var(--ease), box-shadow .3s var(--ease), background .5s var(--ease), border-color .5s var(--ease);} /* Added will-change and transition */
+.plan h3{margin:0 0 8px}
+.plan .amt{font:800 24px/1 Inter}
+.plan ul{padding-left:18px; margin:10px 0}
+.plan li{margin:6px 0}
+
+form{display:grid; gap:12px}
+input, textarea{padding:12px 14px; border-radius:12px; border:1px solid var(--glass-brd); background:color-mix(in oklab, var(--bg-2) 90%, white 10%); color:var(--txt); will-change: background, color, border-color; transition: background .5s var(--ease), color .5s var(--ease), border-color .5s var(--ease);} /* Added will-change and transition */
+textarea{min-height:120px; resize:vertical}
+
+footer{padding:40px 20px; color:var(--muted); will-change: background, color; transition: background .5s var(--ease), color .5s var(--ease);} /* Added will-change and transition */
+.foot{display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between}
+
+/* Testimonials carousel */
+.carousel{position:relative}
+.track{display:flex; gap:18px; overflow:hidden; scroll-behavior:smooth}
+.slide{min-width:calc(100% - 4px); flex:1 0 100%}
+@media(min-width:920px){.slide{min-width:calc(50% - 9px); flex:1 0 calc(50% - 9px)}}
+.car-btn{position:absolute; top:50%; transform:translateY(-50%); width:42px; height:42px; display:grid; place-items:center; border-radius:50%; border:1px solid var(--glass-brd); background:var(--glass); cursor:pointer; will-change: transform, box-shadow; transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .5s var(--ease), border-color .5s var(--ease), color .5s var(--ease);} /* Added will-change and transition */
+.car-btn:hover {transform: translateY(-50%) scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,.2);}
+.car-prev{left:-10px}
+.car-next{right:-10px}
+.dots{display:flex; gap:6px; justify-content:center; margin-top:10px}
+.dot{width:7px;height:7px;border-radius:50%; background:color-mix(in oklab, var(--muted) 40%, transparent); will-change: background; transition: background .5s var(--ease);}
+.dot.active{background:linear-gradient(135deg,var(--fx-2),var(--fx-1))}
+
+/* Focus ring */
+:focus-visible{outline:2px solid var(--ring); outline-offset:3px; border-radius:10px}
+
+/* Guarantee Icons Placeholder Styling */
+.guarantee ul li:before {
+    content: '✔️'; /* Simple checkmark for now */
+    margin-right: 8px;
+    color: var(--fx-3); /* Green checkmark */
+    display: inline-block;
+    transition: transform .3s ease;
+}
+.guarantee ul li:hover:before {
+    transform: scale(1.2) rotate(5deg);
+}
+
+/* --- Bug Fixes & Responsiveness Enhancements --- */
+
+/* Ensure no element explicitly forces horizontal scroll */
+body {
+    overflow-x: hidden; /* Already present, but re-emphasize */
+}
+
+/* Adjust wrap and section padding for very small screens */
+@media (max-width: 480px) {
+    .wrap {
+        padding: 0 15px; /* Slightly reduce padding to give more space */
+    }
+    section {
+        padding: 60px 15px; /* Adjust section padding as well */
+    }
+}
+
+/* Ensure images within cards are responsive */
+.card-content img {
+    max-width: 100%; /* Already present, but re-emphasize */
+    height: auto; /* Ensure aspect ratio is maintained */
+}
+
+/* Prevent text from overflowing in cases where it might not wrap */
+p, li, h1, h2, h3 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Adjust font sizes for smaller screens if they appear too large */
+@media (max-width: 600px) {
+    h1 {
+        font-size: clamp(30px, 8vw, 48px); /* Make H1 smaller on very small screens */
+    }
+    h2 {
+        font-size: clamp(22px, 5vw, 30px); /* Make H2 smaller */
+    }
+    .sub {
+        font-size: 16px; /* Ensure sub-text is readable */
+    }
+    .badge {
+        font-size: 0.9em; /* Smaller badge text */
+        padding: 6px 10px;
+    }
+    .btn {
+        padding: 10px 14px; /* Smaller buttons */
+        font-size: 0.9em;
+    }
+    .card-content h3 {
+        font-size: 1.5em; /* Adjust project card headings */
+    }
+    .card-content p {
+        font-size: 0.9em; /* Adjust project card descriptions */
+    }
+}
